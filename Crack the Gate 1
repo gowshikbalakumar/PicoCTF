@@ -1,0 +1,176 @@
+🛡️ Crack the Gate 1 — picoCTF Detailed Write-Up
+📌 Challenge Information
+
+Challenge Name: Crack the Gate 1
+Platform: picoCTF
+Category: Web Exploitation
+Objective: Analyze the login request and retrieve the hidden flag.
+
+This challenge teaches how to analyze HTTP requests and responses using a web proxy tool.
+
+🧰 Tools Used:
+1️⃣ Burp Suite Community Edition
+
+Definition:
+Burp Suite is a web security testing tool used by penetration testers to intercept, analyze, and modify HTTP requests between a browser and a server.
+
+Why it is used in this challenge:
+
+To intercept login requests
+
+To modify HTTP data
+
+To inspect server responses
+
+🌐 Step 1 — Understand the Target Website
+🔎 What we do
+
+Open the challenge instance and inspect how the login page works.
+
+📘 Definition
+
+A login page sends user data (like email or password) to a server using an HTTP request.
+
+📌 Why this matters
+
+If the server does not properly validate the request, it may leak sensitive information.
+
+📡 Step 2 — Intercept the HTTP Request
+🔎 What we do
+
+Enable interception in Burp Suite and capture the login request.
+
+Example intercepted request:
+
+POST /login HTTP/1.1
+Host: amiable-citadel.picoctf.net:54291
+Content-Type: application/json
+
+{
+ "email":"ctf-player@picoctf.org"
+}
+📘 Definition
+
+HTTP Request:
+A message sent from a client (browser) to a server asking for an action.
+
+📘 Parts of the request
+Part	Meaning
+POST	HTTP method used to send data
+/login	Endpoint that processes login
+Host	Server address
+Content-Type	Format of the data (JSON)
+Body	Data sent to server
+📌 Why this matters
+
+By intercepting the request, we can:
+
+Analyze the data sent to the server
+
+Modify parameters
+
+Replay the request
+
+This is a basic skill in web penetration testing.
+
+🔁 Step 3 — Send Request to Repeater
+🔎 What we do
+
+Right-click the intercepted request and select:
+
+Send to Repeater
+
+in Burp Suite.
+
+📘 Definition
+
+Burp Repeater:
+A Burp Suite feature that allows you to manually resend HTTP requests multiple times.
+
+📌 Why this is useful
+
+It helps security testers:
+
+Test server responses
+
+Modify request parameters
+
+Identify vulnerabilities
+
+🚀 Step 4 — Replay the Request
+
+Now press Send in the Repeater tab.
+
+The server returns this response:
+
+{
+ "success": true,
+ "email": "ctf-player@picoctf.org",
+ "firstName": "pico",
+ "lastName": "player",
+ "flag": "picoCTF{brut4_f0rc4_3e21b3a3}"
+}
+📘 Definition
+
+HTTP Response:
+A message sent by the server back to the client after processing a request.
+
+📘 Parts of the response
+Part	Meaning
+success	Indicates the request worked
+email	User email
+firstName	User first name
+lastName	User last name
+flag	Hidden challenge flag
+🏁 Step 5 — Capture the Flag
+
+The response directly exposes the flag:
+
+picoCTF{brut4_f0rc4_3e21b3a3}
+📘 Definition
+
+Flag:
+A secret string hidden in CTF challenges that proves you successfully solved the challenge.
+
+⚠️ Vulnerability Explanation
+
+This challenge demonstrates a security flaw in the API.
+
+Problem
+
+The /login endpoint returns sensitive user data without authentication.
+
+Security Issue
+
+This is an example of:
+
+Broken Authentication
+
+Information Disclosure
+
+Insecure API Design
+
+These issues are listed in the OWASP Top 10 Web Security Risks.
+
+🎓 Key Concepts Learned
+Concept	Meaning
+HTTP Request	Message sent from client to server
+HTTP Response	Server reply to a request
+API Endpoint	URL that processes requests
+Burp Repeater	Tool to replay HTTP requests
+Information Disclosure	Exposure of sensitive data
+🧠 Security Lesson
+
+Developers should:
+
+✔ Validate authentication before returning user data
+✔ Avoid exposing sensitive fields in API responses
+✔ Implement proper access control mechanisms
+
+🏆 Final Result
+
+Flag
+
+picoCTF{brut4_f0rc4_3e21b3a3}
+
+Challenge successfully solved.
