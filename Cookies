@@ -1,0 +1,82 @@
+🍪 picoCTF 2021 – Cookies (Write-up)
+📌 Challenge Information
+Field	             Details
+Challenge	         Cookies
+Category	         Web Exploitation
+Difficulty	       Easy
+Event	             picoCTF
+
+Description
+Who doesn't love cookies? Try to figure out the best one.
+
+Target URL:
+http://wily-courier.picoctf.net:65086/
+
+🎯 Objective
+The goal of this challenge is to understand how the website uses HTTP cookies and manipulate them to discover the flag.
+
+🔎 Step 1 — Exploring the Website
+*When opening the challenge website, a page appeared asking the user to select a cookie type.
+*Each time a cookie was selected, the website responded with a message such as:
+*That is a tasty cookie!
+
+*Since the challenge is categorized under Web Exploitation, it suggested that the vulnerability might involve client-side data manipulation.
+
+🔍 Step 2 — Inspecting Cookies in the Browser
+To analyze how the website works, I opened Developer Tools in the browser.
+Right Click → Inspect → Application → Cookies
+
+Inside the cookie storage, I found a cookie named:
+name
+
+Initially, the value looked like:
+name = -1
+
+After selecting different cookies on the webpage, the value changed to numbers like:
+name = 0
+name = 1
+name = 2
+name = 3
+
+This showed that the website was using the cookie value to identify which cookie was selected.
+
+🧠 Step 3 — Testing Different Cookie Values
+Since the cookie value was simply a number, I suspected that the server might have a list of cookies indexed by numbers.
+Therefore, I manually modified the cookie value in Developer Tools.
+
+Steps:
+Open Developer Tools
+Go to Application → Cookies
+Find the cookie named name
+Change the value to different numbers
+Refresh the page
+
+I tried several values such as:
+name = 10
+name = 15
+name = 18
+name = 20
+
+Each time I refreshed the page, the response changed.
+
+🏁 Step 4 — Finding the Flag
+After testing several cookie values, one of the values caused the website to display the flag.
+
+The flag appeared directly in the webpage response.
+picoCTF{3v3ry1_l0v3s_c00k135_4d4adb49}
+
+📚 What I Learned
+
+From this challenge, I learned:
+How HTTP cookies store client-side data
+How web applications sometimes trust user-controlled cookies
+How attackers can manipulate cookies using browser developer tools
+Basic web exploitation techniques
+
+🔐 Vulnerability
+Client-side cookie manipulation
+The application trusted the value stored in the cookie without proper validation.
+This allowed users to change the cookie value and access hidden responses.
+
+🏴 Flag
+picoCTF{3v3ry1_l0v3s_c00k135_4d4adb49}
