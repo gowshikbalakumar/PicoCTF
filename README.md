@@ -64,4 +64,4 @@ https://picoctf.org/
 
 ---
 
-⭐ This repository is part of my journey to become a **cybersecurity professional**.
+⭐ This repository is part of my journey to become a *cybersecurity professional*.
