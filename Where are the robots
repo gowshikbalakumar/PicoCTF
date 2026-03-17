@@ -1,0 +1,113 @@
+🤖 Where are the robots - PicoCTF
+
+📌 Challenge Information
+Field	Details
+Challenge	    Where are the robots
+Category	    Web Exploitation
+Difficulty	  Easy
+Event	        picoCTF
+
+
+📝 Description
+
+Can you find the robots?
+
+Sometimes websites hide important paths using a special file called robots.txt. This file tells web crawlers which parts of the website they should or should not access.
+
+The goal of this challenge is to inspect the robots.txt file and discover hidden directories that might contain the flag.
+
+
+🎯 Objective
+
+The objective of this challenge is to:
+
+Understand how the robots.txt file works
+
+Identify hidden directories listed in robots.txt
+
+Navigate to the restricted directory to find the flag
+
+
+🔎 Step 1 — Exploring the Website
+
+After opening the challenge webpage, the site appeared very simple and did not show any obvious hints or flags.
+
+Since the challenge belongs to Web Exploitation, I started looking for common web files that may reveal hidden information.
+
+One common file used by websites is:
+
+robots.txt
+
+This file is usually located at the root of a website.
+
+Example:
+
+http://fickle-tempest.picoctf.net:60592/robots.txt
+
+
+🔍 Step 2 — Checking the robots.txt File
+
+I navigated to the robots.txt file by adding /robots.txt to the challenge URL.
+
+Example:
+
+http://fickle-tempest.picoctf.net:60592/robots.txt
+
+Inside the file, I found the following content:
+
+User-agent: *
+Disallow: /1bb4c.html
+
+The Disallow directive indicates a directory or file that web crawlers should avoid indexing.
+
+However, it can still be accessed directly through the browser.
+
+
+🧠 Step 3 — Accessing the Hidden Path
+
+Since the robots.txt file revealed the path:
+
+/1bb4c.html
+
+I navigated to:
+
+http://fickle-tempest.picoctf.net:60592/1bb4c.html
+
+After opening this page, the flag appeared directly on the webpage.
+
+
+🏁 Step 4 — Finding the Flag
+
+When visiting the hidden page, the flag was displayed.
+
+picoCTF{ca1cu1at1ng_Mach1n3s_cc6b1}
+
+📚 What I Learned
+
+From this challenge, I learned:
+
+How the robots.txt file works
+
+How websites use robots.txt to control search engine crawlers
+
+How attackers can use robots.txt to discover hidden directories
+
+Basic web reconnaissance techniques
+
+
+🔐 Vulnerability / Concept
+
+This challenge demonstrates a common concept in web security:
+
+Information Disclosure through robots.txt
+
+The robots.txt file revealed a hidden path that should not be indexed by search engines. However, anyone who reads the file can still access the directory manually.
+
+
+🏴 Flag
+
+ picoCTF{ca1cu1at1ng_Mach1n3s_cc6b1}
+
+✍️ Author
+Gowshik Balakumar
+Cybersecurity Learner | Linux Enthusiast | Web Security Explorer
