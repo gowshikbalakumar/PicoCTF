@@ -1,0 +1,117 @@
+🌐 picoCTF – WebDecode
+
+📌 Challenge Information
+
+Field	Details:
+Challenge	           WebDecode
+Category	           Web Exploitation
+Difficulty	         Easy
+Event	               picoCTF
+
+📝 Description
+
+Do you know how to inspect web pages? Sometimes the flag is hidden in encoded form within the webpage source.
+
+The goal of this challenge is to inspect the webpage and decode hidden information to reveal the flag.
+
+
+🎯 Objective
+
+The objective of this challenge is to:
+
+Inspect the webpage source code
+
+Identify encoded data
+
+Decode the encoded string to retrieve the flag
+
+
+🔎 Step 1 — Exploring the Website
+
+After opening the challenge instance, the webpage appeared very simple and did not display any obvious flag.
+
+Since the challenge belongs to Web Exploitation, the next logical step was to inspect the webpage for hidden information.
+
+Common places where flags may be hidden include:
+
+HTML source code
+
+HTML comments
+
+JavaScript files
+
+Encoded text
+
+
+🔍 Step 2 — Inspecting the Page Source
+
+To analyze the webpage, I opened the page source using:
+
+Right Click → View Page Source
+
+or
+
+Ctrl + U
+
+Inside the HTML source code, I found an encoded string that looked like this:
+
+cGljb0NURnt3ZWJkZWNvZGVfZnVuXzEwYjA1OGUwfQ==
+
+The structure of this string suggested that it was Base64 encoded.
+
+
+🧠 Step 3 — Decoding the Encoded String
+
+Base64 is a common encoding method used to represent binary data in text format.
+
+To decode it, I used a Base64 decoder.
+
+Example using Linux:
+
+echo "cGljb0NURnt3ZWJkZWNvZGVfZnVuXzEwYjA1OGUwfQ==" | base64 -d
+
+You can also use online tools like CyberChef.
+
+After decoding the string, the hidden flag was revealed.
+
+
+🏁 Step 4 — Finding the Flag
+
+After decoding the Base64 string, the result was:
+
+picoCTF{webdecode_fun_10b058e0}
+
+This was the flag for the challenge.
+
+
+📚 What I Learned
+
+From this challenge, I learned:
+
+How to inspect webpage source code
+
+How flags can be hidden inside encoded data
+
+How to recognize Base64 encoded strings
+
+How to decode encoded data using tools like CyberChef or the Linux terminal
+
+
+🔐 Vulnerability / Concept
+
+This challenge demonstrates a common beginner concept in web exploitation:
+
+Information Disclosure through Encoded Data
+
+The flag was hidden in the webpage using Base64 encoding, which is not secure encryption but simply a way to encode text.
+
+Anyone inspecting the page source could decode it and retrieve the flag.
+
+
+🏴 Flag
+picoCTF{webdecode_fun_10b058e0}
+
+
+✍️ Author
+Gowshik Balakumar
+Cybersecurity Learner | Linux Enthusiast | Web Security Explorer
