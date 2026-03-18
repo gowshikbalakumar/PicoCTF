@@ -1,0 +1,143 @@
+# picoCTF Writeup — GET aHEAD
+
+## Challenge Information
+
+| Field      | Details          |
+| ---------- | ---------------- |
+| Challenge  | GET aHEAD        |
+| Category   | Web Exploitation |
+| Difficulty | Easy             |
+| Event      | picoCTF          |
+
+---
+
+## Description
+
+In this challenge, the goal is to understand how web servers handle different HTTP request methods. The challenge hints that the **HEAD request** may reveal hidden information compared to the usual **GET request**.
+
+---
+
+## Objective
+
+Analyze the web server behavior using different HTTP methods and retrieve the hidden flag.
+
+---
+
+## Step 1 — Accessing the Website
+
+When opening the challenge URL in the browser, a simple webpage appeared displaying two buttons:
+
+* **Choose Red**
+* **Choose Blue**
+
+Clicking either button returned a similar response and did not reveal the flag.
+
+Since the challenge name is **GET aHEAD**, it hints at exploring **HTTP request methods**, especially:
+
+* GET
+* HEAD
+
+---
+
+## Step 2 — Intercepting the Request
+
+To analyze the HTTP traffic, a web proxy tool such as **Burp Suite** can be used.
+
+Steps:
+
+1. Open the challenge page.
+2. Intercept the request using **Burp Suite**.
+3. Observe that the browser sends a **GET request** to the server.
+
+Example request:
+
+```
+GET /index.php HTTP/1.1
+Host: challenge-site
+User-Agent: Mozilla/5.0
+```
+
+The response does not contain the flag.
+
+---
+
+## Step 3 — Modifying the Request Method
+
+Because the challenge title suggests **GET aHEAD**, I changed the HTTP request method from:
+
+```
+GET
+```
+
+to
+
+```
+HEAD
+```
+
+Modified request:
+
+```
+HEAD /index.php HTTP/1.1
+Host: challenge-site
+User-Agent: Mozilla/5.0
+```
+
+The **HEAD method** asks the server to return only the response headers without the body.
+
+---
+
+## Step 4 — Discovering the Flag
+
+After sending the **HEAD request**, the server responded with HTTP headers containing the flag.
+
+Example response:
+
+```
+HTTP/1.1 200 OK
+Content-Type: text/html
+Flag: picoCTF{r3j3ct_th3_du4l1ty_8b13f07}
+```
+
+The flag was hidden inside the **response headers**, which are not visible during normal browsing.
+
+---
+
+## What I Learned
+
+From this challenge, I learned:
+
+* The difference between **GET** and **HEAD** HTTP methods.
+* How servers respond differently to various request types.
+* How to analyze web traffic using tools like **Burp Suite**.
+* How HTTP headers can contain hidden information.
+
+---
+
+## Vulnerability Concept
+
+The challenge demonstrates how developers sometimes expose sensitive information through **HTTP headers**, which attackers can discover by manipulating request methods.
+
+---
+
+## Flag
+
+```
+picoCTF{r3j3ct_th3_du4l1ty_8b13f07}
+```
+
+---
+
+## Tools Used
+
+* Browser Developer Tools
+* Burp Suite
+* Basic HTTP knowledge
+
+---
+
+## Author
+
+**Gowshik Balakumar**
+Cybersecurity Student | Web Security Learner
+Lab: **Tuxors**
