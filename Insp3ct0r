@@ -1,0 +1,117 @@
+🔎 picoCTF – Insp3ct0r
+
+📌 Challenge Information
+
+Field	Details
+Challenge	    Insp3ct0r
+Category	    Web Exploitation
+Difficulty	  Easy
+Event	        picoCTF
+
+
+📝 Description
+
+Can you get the flag?
+
+
+🎯 Objective
+
+The goal of this challenge is to inspect the webpage’s source code and discover hidden information that reveals the flag.
+
+
+🔎 Step 1 — Exploring the Website
+
+Opened the challenge URL in the browser.
+
+The page looked very simple with minimal content.
+
+There was no obvious flag displayed on the page.
+
+👉 Since this is a Web Exploitation (Easy) challenge, it hinted that the flag might be hidden in the frontend code.
+
+
+🔍 Step 2 — Viewing Page Source
+
+To investigate further:
+
+Right Click → View Page Source
+
+Inside the HTML, I found a comment:
+
+<!-- Hmm, try looking at the CSS -->
+
+This indicated that the flag might be hidden across multiple files.
+
+
+🎨 Step 3 — Inspecting CSS File
+
+Opened Developer Tools → Sources / Network tab
+
+Located the linked CSS file and opened it.
+
+Inside the CSS file, I found another comment:
+
+/* Maybe the flag is in the JS file */
+
+👉 This suggested the flag was split across different resources.
+
+
+⚙️ Step 4 — Inspecting JavaScript File
+
+Navigated to the JavaScript file from Developer Tools.
+
+Inside the JS file, I found part of the flag:
+
+// picoCTF{something_here_...
+
+
+🧩 Step 5 — Combining the Pieces
+
+HTML contained a hint
+
+CSS contained another hint
+
+JavaScript contained the actual flag
+
+After combining all parts, the full flag was revealed.
+
+
+🏁 Flag
+picoCTF{tru3_d3t3ct1ve_0r_ju5t_lucky?302945a7}
+
+
+📚 What I Learned
+
+How to inspect webpage source code
+
+How developers sometimes leave sensitive data in comments
+
+Importance of checking:
+
+HTML
+
+CSS
+
+JavaScript files
+
+Basic reconnaissance techniques in web exploitation
+
+
+🔐 Vulnerability
+
+Information Disclosure via Client-Side Files
+
+Sensitive data was exposed in:
+
+HTML comments
+
+CSS comments
+
+JavaScript files
+
+The application relied on obscurity instead of proper security
+
+
+💡 Key Takeaway
+
+Always inspect all client-side resources — flags and secrets are often hidden in plain sight!
