@@ -1,0 +1,130 @@
+picoCTF Writeup — dont-use-client-side
+
+Challenge Information
+
+Field	Details
+Challenge	     dont-use-client-side
+Category	     Web Exploitation
+Difficulty	   Easy
+Event	         picoCTF
+
+
+Description
+
+This challenge demonstrates why sensitive validation should never be implemented on the client side (JavaScript). The flag is hidden within the frontend logic and can be extracted by analyzing the code.
+
+
+Objective
+
+Analyze the client-side JavaScript and reconstruct the hidden flag.
+
+Step 1 — Accessing the Website
+
+The challenge page contains a password input field.
+
+Entering random inputs results in "Incorrect password"
+
+No visible hints are shown
+
+This suggests that validation happens on the client side
+
+
+Step 2 — Inspecting the Source Code
+
+Steps:
+
+Right-click → Inspect
+
+Go to Sources / Debugger
+
+Locate the JavaScript function responsible for validation
+
+
+Step 3 — Extracting the JavaScript Logic
+
+function verify() {
+  checkpass = document.getElementById("pass").value;
+  split = 4;
+
+  if (checkpass.substring(0, split) == 'pico') {
+    if (checkpass.substring(split*6, split*7) == 'eb02') {
+      if (checkpass.substring(split, split*2) == 'CTF{') {
+        if (checkpass.substring(split*4, split*5) == 'ts_p') {
+          if (checkpass.substring(split*3, split*4) == 'lien') {
+            if (checkpass.substring(split*5, split*6) == 'lz_2') {
+              if (checkpass.substring(split*2, split*3) == 'no_c') {
+                if (checkpass.substring(split*7, split*8) == 'b45}') {
+                  alert("Password Verified")
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  } else {
+    alert("Incorrect password");
+  }
+}
+
+
+Step 4 — Understanding the Logic
+
+The password is split into 8 parts, each containing 4 characters:
+
+Index Range	Value
+0–4	pico
+4–8	CTF{
+8–12	no_c
+12–16	lien
+16–20	ts_p
+20–24	lz_2
+24–28	eb02
+28–32	b45}
+
+
+Step 5 — Reconstructing the Flag
+
+pico + CTF{ + no_c + lien + ts_p + lz_2 + eb02 + b45}
+
+
+✅ Final Flag
+
+picoCTF{no_clients_plz_2eb02b45}
+
+
+What I Learned
+
+Client-side code is fully visible and reversible
+
+JavaScript should never contain sensitive data
+
+Attackers can reconstruct logic easily
+
+Always validate on the server side
+
+
+Vulnerability Concept
+
+Client-Side Validation Vulnerability
+
+Sensitive logic exposed in frontend
+
+No backend verification
+
+Easily bypassable security
+
+
+Tools Used
+
+Browser Developer Tools
+
+JavaScript Analysis
+
+Basic Web Security Concepts
+
+
+Author
+Gowshik Balakumar
+Cybersecurity Student | Web Security Learner
+Lab: Tuxors
